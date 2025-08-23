@@ -1,0 +1,70 @@
+#version: 2.1
+services: 
+  prowlarr: 
+    #image: linuxserver/prowlarr:latest 
+    image: lscr.io/linuxserver/prowlarr:latest   ##use this image for custom indexers
+    container_name: prowlarr 
+    hostname: prowlarr 
+    environment: 
+      - PUID=1000 
+      - PGID=1000 
+      - TZ=Europe/London 
+    volumes: 
+      - ./configs/prowlarr:/config 
+      - ./configs/prowlarr/Custom:/config/Definitions/Custom
+    ports: 
+      - 9696:9696 
+    restart: unless-stopped 
+    #depends_on: 
+    #  - flaresolverr 
+  #flaresolverr: 
+  #  image: ghcr.io/flaresolverr/flaresolverr:latest 
+  #  container_name: flaresolverr 
+  #  hostname: flaresolverr
+  #  environment: 
+  #    - LOG_LEVEL=${LOG_LEVEL:-info} 
+  #    - LOG_HTML=${LOG_HTML:-false} 
+  #    - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none} 
+  #   - TZ=Europe/London 
+  #  restart: unless-stopped 
+
+  
+  radarr: 
+    image: lscr.io/linuxserver/radarr:latest 
+    container_name: radarr 
+    hostname: radarr
+    environment: 
+      - PUID=1000 
+      - PGID=1000 
+      - TZ=Europe/London 
+    volumes: 
+      - ./configs/radarr:/config 
+      - /mnt:/mnt
+      - /media/unnit/usb/Media:/Elements
+      - /home/unnit/mnt/downloads:/downloads 
+    ports: 
+      - 7878:7878 
+    restart: unless-stopped 
+    depends_on: 
+      - prowlarr 
+      # - qbittorrent 
+  sonarr: 
+    image: lscr.io/linuxserver/sonarr:latest 
+    container_name: sonarr 
+    hostname: sonarr
+    environment: 
+      - PUID=1000 
+      - PGID=1000 
+      - TZ=Europe/London 
+    volumes: 
+      - ./configs/sonarr:/config 
+      - /mnt:/mnt 
+      - /media/unnit/usb/Media:/Elements
+      - /home/unnit/mnt/downloads:/downloads 
+    depends_on: 
+      - prowlarr 
+      # - qbittorrent 
+    ports: 
+      - 8989:8989 
+    restart: unless-stopped
+
