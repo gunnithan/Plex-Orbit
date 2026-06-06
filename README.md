@@ -32,8 +32,4 @@ The real truth is that this stack is the survival champion after testing, breaki
 
 Does that mean it will remain like this forever? Absolutely not. After all, why do something manually in two minutes when you can spend days scripting it and completely messing things up? :-)
 
-* **Network Isolation:** Highly sensitive containers are chained directly to the `gluetun` VPN network namespace, ensuring zero data leakage if a connection drops.
-* **Decoupled Directories:** All configuration persistent data (`/config`) is completely separated from the massive media arrays, allowing for swift, lightweight automated backups.
-* **Metadata Integrity:** The layout is optimised to allow the automation tools to handle hardlinks flawlessly, preventing duplicate disk space usage while maintaining clean metadata seeding.
-
 ---
