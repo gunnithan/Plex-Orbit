@@ -16,7 +16,7 @@ The services are split into logical layers to ensure a seamless, automated workf
 ### 2. Automated Library Managers (The Arr Suite)
 * **Sonarr & Radarr:** Smart managers that monitor digital libraries, track missing episodes or movies, and automate upgrade paths.
 * **Prowlarr:** Indexer management tool that syncs tracker configurations instantly across the entire download stack.
-* **Overseerr (Seerr):** A clean, user-friendly request management interface that integrates directly with the managers.
+* **Seerr:** A clean, user-friendly request management interface that integrates directly with the managers.
 
 ### 3. Fetching & Specialty Clients
 * **Nicotine+:** A web client for the Soulseek network -  for sourcing rare tracks, lossless audio, and niche music files.
