@@ -39,11 +39,3 @@ Does that mean it will remain like this forever? Absolutely not. After all, why 
 * **Metadata Integrity:** The layout is optimised to allow the automation tools to handle hardlinks flawlessly, preventing duplicate disk space usage while maintaining clean metadata seeding.
 
 ---
-
-## Quick Start Setup
-
-### Prerequisites
-Ensure your host machine has Docker and the Docker Compose plugin installed:
-```bash
-docker --version
-docker compose version
