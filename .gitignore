@@ -1,0 +1,11 @@
+# Ignore all secret environment files
+.env
+*.env
+
+# Ignore any config.json files anywhere in the repository
+**/config.json
+config.json
+
+# Ignore system files and logs
+*.log
+.DS_Store

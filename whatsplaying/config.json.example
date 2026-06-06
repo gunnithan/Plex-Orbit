@@ -1,0 +1,7 @@
+{
+  "preferredOrder": [],
+  "hideLibraries": [],
+  "plexToken": "Your-Plex-Token-Here",
+  "autoDisplayAlbums": false,
+  "intervalBetweenAlbums": 30
+}

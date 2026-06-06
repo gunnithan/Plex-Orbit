@@ -1,0 +1,29 @@
+services:
+  plex:
+    image: plexinc/pms-docker:latest
+    container_name: plex
+    shm_size: '4gb'
+    devices:
+      - /dev/dri:/dev/dri    
+    volumes:
+      - /opt/appdata/plex/library:/config
+      - /dev/shm/transcoding:/transcode
+      #- /opt/appdata/plex/transcode:/transcode
+      - /mnt/wd:/plex-media    
+    environment:
+     # - UMASK=002
+      - TZ=Europe/London
+      - PLEX_UID=1000                                           ## Same as PUID
+      - PLEX_GID=1000                                           ## Same as PGID
+      - PLEX_CLAIM=claim-W3bYf3jkq1st7ieEyUkn  ## Need for the first run of Plex - get claimToken here https://www.plex.tv/claim/
+    ports:
+      - "32400:32400"
+    healthcheck:
+      test: curl --connect-timeout 15 --silent --show-error --fail http://localhost:32400/identity
+      interval: 1m00s
+      timeout: 15s
+      retries: 3
+      start_period: 1m00s
+    restart: always
+      
+    

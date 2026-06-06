@@ -1,0 +1,16 @@
+services:
+  lazylibrarian:
+    image: lscr.io/linuxserver/lazylibrarian:latest
+    container_name: lazylibrarian
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - DOCKER_MODS=linuxserver/mods:universal-calibre|linuxserver/mods:lazylibrarian-ffmpeg #optional
+    volumes:
+      - /opt/appdata/lazylibrarian/data:/config
+      - /mnt/wd/downloads/books:/downloads
+      #- /mnt/plex:/books #optional
+    ports:
+      - 5299:5299
+    restart: unless-stopped

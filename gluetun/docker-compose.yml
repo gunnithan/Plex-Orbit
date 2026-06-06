@@ -1,0 +1,39 @@
+#version: "3.8"
+services:
+  gluetun:
+    image: qmcgaw/gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    environment:
+      - VPN_SERVICE_PROVIDER=windscribe
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=6KK4pace3FIjMe41/7c+KdW0F2EIvNQw1x7d9T4EBH4=
+      - WIREGUARD_ADDRESSES=100.75.184.216/32
+      - WIREGUARD_PRESHARED_KEY=P90PmgwghNQ3+FtK2BoLpI8Zq+3uS+ML7nsNS8+zTio=
+      - SERVER_REGIONS=Netherlands
+      - SERVER_CITIES=Amsterdam
+
+  qbittorrent:
+   image: lscr.io/linuxserver/qbittorrent:latest
+   container_name: qbittorrent
+   network_mode: "service:gluetun"
+   environment:
+     - PUID=0
+     - PGID=1000
+     - TZ=Europe/London
+     - WEBUI_PORT=8080
+     - TORRENTING_PORT=6881
+   volumes:
+     - /opt/appdata/qbittorrent/config:/config
+     - /mnt/wd/downloads:/downloads
+  #  ports:
+  #     - 8080:8080
+  #     - 6881:6881
+  #     - 6881:6881/udp
+   restart: unless-stopped

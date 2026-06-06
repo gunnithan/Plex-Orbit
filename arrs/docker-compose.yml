@@ -1,0 +1,57 @@
+#version: 2.1
+services: 
+  prowlarr: 
+    #image: linuxserver/prowlarr:latest 
+    image: lscr.io/linuxserver/prowlarr:latest   ##use this image for custom indexers
+    container_name: prowlarr 
+    hostname: prowlarr 
+    environment: 
+      - PUID=1000 
+      - PGID=1000 
+      - TZ=Europe/London 
+    volumes: 
+      - /opt/appdata/arrs/prowlarr:/config 
+      - /opt/appdata/arrs/prowlarr/Custom:/config/Definitions/Custom
+    ports: 
+      - 9696:9696 
+    restart: unless-stopped 
+    
+  radarr: 
+    image: lscr.io/linuxserver/radarr:latest 
+    container_name: radarr 
+    hostname: radarr
+    environment: 
+      - PUID=1000 
+      - PGID=1000 
+      - TZ=Europe/London 
+    volumes: 
+      - /opt/appdata/arrs/radarr:/config 
+      #- /mnt/remote:/mnt:rshared # remote mount propogation.
+      - /mnt/wd:/plex-media # where arrs copy files to
+      - /mnt/wd/downloads:/downloads # where downloads are placed for arrs to see      
+    ports: 
+      - 7878:7878 
+    restart: unless-stopped 
+    depends_on: 
+      - prowlarr 
+
+  sonarr: 
+    image: lscr.io/linuxserver/sonarr:latest 
+    container_name: sonarr 
+    hostname: sonarr
+    environment: 
+      - PUID=1000 
+      - PGID=1000 
+      - TZ=Europe/London 
+    volumes: 
+     - /opt/appdata/arrs/sonarr:/config 
+     # /mnt/remote:/mnt:rshared # remote mount propogation.
+     - /mnt/wd:/plex-media # where arrs copy files to
+     - /mnt/wd/downloads:/downloads # where downloads are placed for arrs to see     
+    depends_on: 
+      - prowlarr 
+    ports: 
+      - 8989:8989 
+    restart: unless-stopped
+  
+  
