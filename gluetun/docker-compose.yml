@@ -16,8 +16,8 @@ services:
       - WIREGUARD_PRIVATE_KEY=6KK4pace3FIjMe41/7c+KdW0F2EIvNQw1x7d9T4EBH4=
       - WIREGUARD_ADDRESSES=100.75.184.216/32
       - WIREGUARD_PRESHARED_KEY=P90PmgwghNQ3+FtK2BoLpI8Zq+3uS+ML7nsNS8+zTio=
-      - SERVER_REGIONS=Netherlands
-      - SERVER_CITIES=Amsterdam
+      - SERVER_REGIONS=Netherlands,United Kingdom
+      - SERVER_CITIES=Amsterdam,London
 
   qbittorrent:
    image: lscr.io/linuxserver/qbittorrent:latest
