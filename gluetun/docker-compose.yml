@@ -1,4 +1,3 @@
-#version: "3.8"
 services:
   gluetun:
     image: qmcgaw/gluetun
@@ -7,7 +6,7 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     ports:
-      - 8080:8080
+      - 8282:8282       # <-- Swapped to 8282 to avoid the conflict
       - 6881:6881
       - 6881:6881/udp
     environment:
@@ -20,20 +19,16 @@ services:
       - SERVER_CITIES=Amsterdam,London
 
   qbittorrent:
-   image: lscr.io/linuxserver/qbittorrent:latest
-   container_name: qbittorrent
-   network_mode: "service:gluetun"
-   environment:
-     - PUID=0
-     - PGID=1000
-     - TZ=Europe/London
-     - WEBUI_PORT=8080
-     - TORRENTING_PORT=6881
-   volumes:
-     - /opt/appdata/qbittorrent/config:/config
-     - /mnt/wd/downloads:/downloads
-  #  ports:
-  #     - 8080:8080
-  #     - 6881:6881
-  #     - 6881:6881/udp
-   restart: unless-stopped
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    network_mode: "service:gluetun"
+    environment:
+      - PUID=0
+      - PGID=1000
+      - TZ=Europe/London
+      - WEBUI_PORT=8282 # <-- Must match the Gluetun internal port
+      - TORRENTING_PORT=6881
+    volumes:
+      - /opt/appdata/qbittorrent/config:/config
+      - /mnt/wd/downloads:/downloads
+    restart: unless-stopped
